@@ -1,0 +1,9 @@
+llama-index
+qdrant-client
+python-docx
+pypdf
+pillow
+beautifulsoup4
+tqdm
+fastapi
+uvicorn

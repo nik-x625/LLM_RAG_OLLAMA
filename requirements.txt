@@ -1,9 +1,3 @@
-llama-index
-qdrant-client
-python-docx
-pypdf
-pillow
-beautifulsoup4
-tqdm
-fastapi
-uvicorn
+requests
+openai==0.28.1
+pyyaml

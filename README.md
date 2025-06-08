@@ -44,13 +44,11 @@ rag_project/
 ```
 ## 📊 Workflow Diagram
 
-```mermaid
 flowchart TD
-    A[HTML (or any text format) Files] -->|Extract Metadata| B[Clean + Chunk]
+    A[HTML/MDX Files] -->|Extract Metadata| B[Clean + Chunk]
     B -->|Process| C[Generate Embeddings]
     C -->|Store| D[Qdrant Database]
     E[User Prompt] -->|Embed| F[Search Query]
     F -->|Find| G[Retrieve Top K]
     G -->|Context| H[Generate Answer]
     H -->|Return| I[Final Response]
-```

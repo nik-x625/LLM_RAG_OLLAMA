@@ -1,6 +1,8 @@
 import re
 import yaml
 import requests
+from config import OLLAMA_URL, MODEL_NAME, CONTEXT_WINDOW
+
 
 def extract_metadata_from_mdx(file_path: str):
     with open(file_path, "r") as file:
@@ -25,21 +27,21 @@ def create_chunks(content: str):
         chunks.append(chunk.strip())
     return chunks
 
-def generate_embeddings(text: str):
+def generate_embeddings(text: str, model_name: str = MODEL_NAME):
     response = requests.post(
-        "http://host.docker.internal:11434/api/embed",
-        json={"model": "mistral", "input": text}
+        f"{OLLAMA_URL}/api/embed",
+        json={"model": model_name, "input": text}
     )
     return response.json().get("embeddings", [None])[0]
 
-def generate_response(prompt: str):
+def generate_response(prompt: str, model_name: str = MODEL_NAME):
     response = requests.post(
-        "http://host.docker.internal:11434/api/generate",
+        f"{OLLAMA_URL}/api/generate",
         json={
-            "model": "mistral",
+            "model": model_name,
             "prompt": prompt,
             "stream": False,
-            "options": {"num_ctx": 10000}
+            "options": {"num_ctx": CONTEXT_WINDOW}
         }
     )
     return response.json()["response"]

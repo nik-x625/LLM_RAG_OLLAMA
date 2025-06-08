@@ -1,4 +1,4 @@
-# 🧠 RAG System with Qdrant + Ollama (Mistral)
+# 🧠 RAG System with Qdrant + Ollama
 
 This project implements a modular Retrieval-Augmented Generation (RAG) pipeline.
 

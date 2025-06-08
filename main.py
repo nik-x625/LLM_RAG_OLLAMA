@@ -90,6 +90,7 @@ def clean_article_content(article_content: str):
     return cleaned_content.strip()
 
 
+# api call to Ollama
 def generate_response(prompt: str):
     response = requests.post(
         "http://host.docker.internal:11434/api/generate",
@@ -107,6 +108,7 @@ def generate_response(prompt: str):
     return response.json()["response"]
 
 
+# api call to Ollama
 def generate_embeddings(text: str):
     response = requests.post(
         "http://host.docker.internal:11434/api/embed",

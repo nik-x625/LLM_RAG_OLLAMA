@@ -1,97 +1,56 @@
-# RAG System with Ollama and Qdrant
+# 🧠 RAG System with Qdrant + Ollama (Mistral)
 
-This project implements a Retrieval-Augmented Generation (RAG) system using Ollama for embeddings and text generation, and Qdrant as the vector database. The system processes HTML documents, creates embeddings, and provides semantic search capabilities.
+This project implements a modular Retrieval-Augmented Generation (RAG) pipeline.
 
-## Features
+---
 
-- Document processing from HTML files
-- Text chunking and cleaning
-- Vector embeddings generation using Ollama's Mistral model
-- Semantic search using Qdrant vector database
-- Question answering with context-aware responses
+## 🔧 Components
 
-## Prerequisites
+### `index_articles.py` — Indexing
+- Cleans & chunks articles
+- Generates embeddings
+- Stores in Qdrant DB
 
-- Docker and Docker Compose
-- Ollama running on your host machine
-- Python 3.x
+### `query_rag.py` — Retrieval
+- Embeds user query
+- Searches Qdrant for relevant chunks
+- Calls LLM with retrieved context
 
-## Setup
+## 🧪 Run
 
-1. Clone the repository:
+### 1. Index articles
+
 ```bash
-git clone <repository-url>
-cd <repository-name>
+python index_articles.py
 ```
 
-2. Create a `docs` directory and place your HTML documents there:
+### 2. Ask a question
+
 ```bash
-mkdir docs
-# Add your HTML files to the docs directory
+python query_rag.py
 ```
 
-3. Start the services using Docker Compose:
-```bash
-docker-compose up -d
-```
+---
 
-## Usage
-
-1. Run the main script:
-```bash
-python main.py
-```
-
-2. The script will:
-   - Process all HTML files in the `docs` directory
-   - Create embeddings and store them in Qdrant
-   - Prompt you to enter a question
-   - Return relevant passages and generate an answer
-
-## Architecture
-
-- **Document Processing**: HTML files are processed and split into chunks
-- **Embeddings**: Uses Ollama's Mistral model to generate embeddings
-- **Vector Storage**: Qdrant stores the embeddings and metadata
-- **Search**: Semantic search is performed using cosine similarity
-- **Response Generation**: Uses Mistral model to generate context-aware responses
-
-## Configuration
-
-The system uses the following default settings:
-- Vector dimension: 4096
-- Distance metric: Cosine similarity
-- Model: Mistral for both embeddings and text generation
-
-## Directory Structure
+## 📦 Structure
 
 ```
-.
-├── docs/               # HTML documents to be processed
-├── main.py            # Main application code
-├── docker-compose.yml # Docker configuration
-└── .gitignore         # Git ignore file
+rag_project/
+├── docs/
+├── index_articles.py
+├── query_rag.py
+├── utils.py
+└── README.md
 ```
 
-## Notes
 
-- The system connects to Ollama running on the host machine using `host.docker.internal`
-- Qdrant data is stored in the `qdrant_data` directory (ignored by git)
-- Make sure Ollama is running on your host machine before starting the application
 
-## Troubleshooting
-
-If you encounter any issues:
-1. Ensure Ollama is running on your host machine
-2. Check if the Docker containers are running properly
-3. Verify that your HTML documents are properly formatted
-4. Check the vector dimensions match between Ollama and Qdrant
 
 ## 📊 Workflow Diagram
 
 ```mermaid
 flowchart TD
-    A[HTML/MDX Files] -->|Extract Metadata| B[Clean + Chunk]
+    A[HTML (or any other type) Files] -->|Extract Metadata| B[Clean + Chunk]
     B -->|Process| C[Generate Embeddings]
     C -->|Store| D[Qdrant Database]
     E[User Prompt] -->|Embed| F[Search Query]

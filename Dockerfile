@@ -15,7 +15,13 @@ RUN apt-get -y install tcpdump tcpflow pylint iputils-ping curl unzip telnet red
 
 RUN echo "Europe/Berlin" > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
+
+RUN pip install --upgrade pip
 RUN pip install jinja2==3.0 pyyaml qdrant-client requests --break-system-packages
+
+# added when PDF import feature added to the codebase
+RUN pip install pymupdf sentence-transformers pdf2image pytesseract langchain --break-system-packages
+RUN apt-get -y install poppler-utils tesseract-ocr
 
 # This is necessary besides the main timezone command
 RUN ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime

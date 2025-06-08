@@ -28,3 +28,7 @@ COLLECTION_NAME = "articles"
 # Ollama settings
 OLLAMA_URL = "http://host.docker.internal:11434"
 CONTEXT_WINDOW = 10000 
+
+# PDF import related configs
+PDF_COLLECTION_NAME = "pdf_documents"
+PDF_DIRECTORY = "docs"

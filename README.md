@@ -42,15 +42,11 @@ rag_project/
 ├── utils.py
 └── README.md
 ```
-
-
-
-
 ## 📊 Workflow Diagram
 
 ```mermaid
 flowchart TD
-    A[HTML (or any other type) Files] -->|Extract Metadata| B[Clean + Chunk]
+    A[HTML/MDX Files] -->|Extract Metadata| B[Clean + Chunk]
     B -->|Process| C[Generate Embeddings]
     C -->|Store| D[Qdrant Database]
     E[User Prompt] -->|Embed| F[Search Query]

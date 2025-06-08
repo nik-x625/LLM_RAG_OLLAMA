@@ -46,7 +46,7 @@ rag_project/
 
 ```mermaid
 flowchart TD
-    A[HTML/MDX Files] -->|Extract Metadata| B[Clean + Chunk]
+    A[HTML (or any text format) Files] -->|Extract Metadata| B[Clean + Chunk]
     B -->|Process| C[Generate Embeddings]
     C -->|Store| D[Qdrant Database]
     E[User Prompt] -->|Embed| F[Search Query]

@@ -3,26 +3,37 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-
+    image: rag_service_image
     container_name: rag_service
-    #privileged: true
-    #restart: unless-stopped
+    restart: unless-stopped
     ports:
-
-    - "0.0.0.0:6000:6000"
-    - "0.0.0.0:8585:8585"
-    - "0.0.0.0:8000:8000"
-
-    #restart: unless-stopped
-
+      - "0.0.0.0:6000:6000"
+      - "0.0.0.0:8585:8585"
+      - "0.0.0.0:8000:8000"
     volumes:
       - ./:/opt/
-
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    environment:
+      - PYTHONUNBUFFERED=1
+      - TZ=UTC
 
   qdrant:
     image: qdrant/qdrant
+    container_name: qdrant_service
+    restart: unless-stopped
     ports:
       - "6333:6333"
     volumes:
       - ./qdrant_data:/qdrant/storage
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6333/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
